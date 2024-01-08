@@ -120,7 +120,31 @@ print(Report_LR)
 ## SVM
 
 ```python
-SVM = svm.SVC(kernel='poly').fit(x_train, y_train)
-predictions = SVM.predict(x_test)
+accuracy_score(y_test, predictions)
+SVM_JaccardIndex = jaccard_score(y_test, predictions)
+SVM_F1_Score = f1_score(y_test, predictions)
 
-SVM_Accuracy_Score =
+Report_SVM = pd.DataFrame({
+    "Metrics": ['Accuracy Score', 'Jaccard Index', 'F1 Score'],
+    "Values": [SVM_Accuracy_Score, SVM_JaccardIndex, SVM_F1_Score]
+})
+print(Report_SVM)
+```
+
+## Report
+
+```python
+list_acc = [KNN_Accuracy_Score, Tree_Accuracy_Score, LR_Accuracy_Score, SVM_Accuracy_Score]
+list_fs = [KNN_F1_Score, Tree_F1_Score, LR_F1_Score, SVM_F1_Score]
+list_ll = ['NA', 'NA', 'NA', LR_Log_Loss]
+list_jc = [KNN_JaccardIndex, Tree_JaccardIndex, LR_JaccardIndex, SVM_JaccardIndex]
+
+Report = pd.DataFrame(list_acc, index=['KNN', 'Decision Tree', 'SVM', 'Logistic Regression'])
+Report.columns = ['Accuracy Score']
+Report.insert(loc=1, column='F1 Score', value=list_fs)
+Report.insert(loc=2, column='Log Loss', value=list_ll)
+Report.insert(loc=3, column='Jaccard Index', value=list_jc)
+Report.columns.name = 'Algorithm'
+print(Report)
+```
+![Report](IBM-Machine-Learning-Australian-Meteorology/img/Q19.png)
