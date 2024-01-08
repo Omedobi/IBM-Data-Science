@@ -147,4 +147,4 @@ Report.insert(loc=3, column='Jaccard Index', value=list_jc)
 Report.columns.name = 'Algorithm'
 print(Report)
 ```
-![Report](IBM-Machine-Learning-Australian-Meteorology/img/Q19.png)
+![Report](img/Q19.png)
