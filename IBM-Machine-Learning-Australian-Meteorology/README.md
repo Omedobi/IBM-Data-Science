@@ -2,149 +2,50 @@
 
 ## About the Data
 
-The original source of the data is the Australian Government's Bureau of Meteorology, and the latest data can be gathered from [Bureau of Meteorology](http://www.bom.gov.au/climate/dwo/?utm_medium=Exinfluencer&utm_source=Exinfluencer&utm_content=000026UJ&utm_term=10006555&utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDeveloperSkillsNetworkML0101ENSkillsNetwork20718538-2022-01-01). The dataset used has additional columns like 'RainToday,' and our target is 'RainTomorrow,' which was obtained from the Rattle at [Rattle Data Repository](https://bitbucket.org/kayontoga/rattle/src/master/data/weatherAUS.RData?utm_medium=Exinfluencer&utm_source=Exinfluencer&utm_content=000026UJ&utm_term=10006555&utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDeveloperSkillsNetworkML0101ENSkillsNetwork20718538-2022-01-01).
-
-This dataset contains weather observations for each day from 2008 to 2017. The 'weatherAUS.csv' dataset includes various weather-related fields.
+The dataset used in this project contains weather observations from the Australian Government's Bureau of Meteorology. It includes data from 2008 to 2017 with additional columns such as 'RainToday' and 'RainTomorrow', obtained from the Rattle Data Repository. The target variable for classification is 'RainTomorrow', indicating whether it will rain the next day.
 
 ## Import the Required Libraries
 
-```python
-import pandas as pd
-from sklearn.linear_model import LogisticRegression, LinearRegression
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.tree import DecisionTreeClassifier
-from sklearn import svm
-from sklearn.metrics import jaccard_score, f1_score, log_loss, accuracy_score
-from sklearn.model_selection import train_test_split
-```
+This section imports necessary libraries such as pandas for data manipulation, scikit-learn for machine learning algorithms, and various metrics for model evaluation.
 
 ## Importing the Dataset
 
-```python
-path = 'https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-ML0101EN-SkillUp/labs/ML-FinalAssignment/Weather_Data.csv'
-df = pd.read_csv(path)
-```
+The dataset is imported from a cloud storage link using pandas' `read_csv` function.
 
 ## Data Preprocessing
 
 ### One Hot Encoding
 
-```python
-df_sydney_processed = pd.get_dummies(data=df, columns=['RainToday', 'WindGustDir', 'WindDir9am', 'WindDir3pm'])
-df_sydney_processed.replace(['No', 'Yes'], [0, 1], inplace=True)
-```
+Categorical variables are encoded using one-hot encoding for better compatibility with machine learning algorithms.
 
 ### Training Data and Test Data
 
-```python
-df_sydney_processed.drop('Date', axis=1, inplace=True)
-df_sydney_processed = df_sydney_processed.astype(float)
+The dataset is split into features and target variables, and further divided into training and testing sets.
 
-features = df_sydney_processed.drop(columns='RainTomorrow', axis=1)
-Y = df_sydney_processed['RainTomorrow']
-```
+## Model Implementation
 
-## Linear Regression
+### Linear Regression
 
-```python
-x_train, x_test, y_train, y_test = train_test_split(features, Y, test_size=0.2, random_state=10)
-LinearReg = LinearRegression()
-LinearReg.fit(x_train, y_train)
-predictions = LinearReg.predict(x_test)
+A linear regression model is trained and evaluated using mean absolute error, mean squared error, and R-squared metrics.
 
-LinearRegression_MAE = mean_absolute_error(y_test, predictions)
-LinearRegression_MSE = mean_squared_error(y_test, predictions)
-LinearRegression_R2 = r2_score(y_test, predictions)
+### KNN (K-Nearest Neighbors)
 
-Report_LR = pd.DataFrame({
-    "Metrics": ['Mean Absolute Error', 'Mean Squared Error', 'R-Squared'],
-    "Values": [LinearRegression_MAE, LinearRegression_MSE, LinearRegression_R2]
-})
-print(Report_LR)
-```
+A KNN classifier is trained and evaluated using accuracy score, Jaccard index, and F1 score.
 
-## KNN
+### Decision Tree
 
-```python
-KNN = KNeighborsClassifier(n_neighbors=4).fit(x_train, y_train)
-predictions = KNN.predict(x_test)
+A decision tree classifier is trained and evaluated using the same metrics as KNN.
 
-KNN_Accuracy_Score = accuracy_score(y_test, predictions)
-KNN_JaccardIndex = jaccard_score(y_test, predictions)
-KNN_F1_Score = f1_score(y_test, predictions)
+### Logistic Regression
 
-Report_KNN = pd.DataFrame({
-    "Metrics": ['Accuracy Score', 'Jaccard Index', 'F1 Score'],
-    "Values": [KNN_Accuracy_Score, KNN_JaccardIndex, KNN_F1_Score]
-})
-print(Report_KNN)
-```
+A logistic regression model is trained and evaluated using accuracy score, Jaccard index, F1 score, and log loss.
 
-## Decision Tree
+### SVM (Support Vector Machine)
 
-```python
-Tree = DecisionTreeClassifier(class_weight='balanced').fit(x_train, y_train)
-predictions = Tree.predict(x_test)
-
-Tree_Accuracy_Score = accuracy_score(y_test, predictions)
-Tree_JaccardIndex = jaccard_score(y_test, predictions)
-Tree_F1_Score = f1_score(y_test, predictions)
-
-Report_Tree = pd.DataFrame({
-    "Metrics": ['Accuracy Score', 'Jaccard Index', 'F1 Score'],
-    "Values": [Tree_Accuracy_Score, Tree_JaccardIndex, Tree_F1_Score]
-})
-print(Report_Tree)
-```
-
-## Logistic Regression
-
-```python
-x_train, x_test, y_train, y_test = train_test_split(features, Y, test_size=0.2, random_state=1)
-LR = LogisticRegression(solver='liblinear').fit(x_train, y_train)
-predictions = LR.predict(x_test)
-predict_proba = LR.predict_proba(x_test)
-
-LR_Accuracy_Score = accuracy_score(y_test, predictions)
-LR_JaccardIndex = jaccard_score(y_test, predictions)
-LR_F1_Score = f1_score(y_test, predictions)
-LR_Log_Loss = log_loss(y_test, predictions)
-
-Report_LR = pd.DataFrame({
-    "Metrics": ['Accuracy Score', 'Jaccard Index', 'F1 Score', 'Log Loss'],
-    "Values": [LR_Accuracy_Score, LR_JaccardIndex, LR_F1_Score, LR_Log_Loss]
-})
-print(Report_LR)
-```
-
-## SVM
-
-```python
-accuracy_score(y_test, predictions)
-SVM_JaccardIndex = jaccard_score(y_test, predictions)
-SVM_F1_Score = f1_score(y_test, predictions)
-
-Report_SVM = pd.DataFrame({
-    "Metrics": ['Accuracy Score', 'Jaccard Index', 'F1 Score'],
-    "Values": [SVM_Accuracy_Score, SVM_JaccardIndex, SVM_F1_Score]
-})
-print(Report_SVM)
-```
+An SVM classifier is trained and evaluated using accuracy score, Jaccard index, and F1 score.
 
 ## Report
 
-```python
-list_acc = [KNN_Accuracy_Score, Tree_Accuracy_Score, LR_Accuracy_Score, SVM_Accuracy_Score]
-list_fs = [KNN_F1_Score, Tree_F1_Score, LR_F1_Score, SVM_F1_Score]
-list_ll = ['NA', 'NA', 'NA', LR_Log_Loss]
-list_jc = [KNN_JaccardIndex, Tree_JaccardIndex, LR_JaccardIndex, SVM_JaccardIndex]
+The performance of each model is summarized in a tabular report, including accuracy score, F1 score, log loss (if applicable), and Jaccard index. Additionally, a visualization of the report is provided in the form of a table.
 
-Report = pd.DataFrame(list_acc, index=['KNN', 'Decision Tree', 'SVM', 'Logistic Regression'])
-Report.columns = ['Accuracy Score']
-Report.insert(loc=1, column='F1 Score', value=list_fs)
-Report.insert(loc=2, column='Log Loss', value=list_ll)
-Report.insert(loc=3, column='Jaccard Index', value=list_jc)
-Report.columns.name = 'Algorithm'
-print(Report)
-```
 ![Report](img/Q19.png)
