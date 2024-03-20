@@ -1,4 +1,4 @@
-# Final Project: Classification with Python
+# Classification with Python
 
 ## About the Data
 
