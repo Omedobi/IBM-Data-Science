@@ -1,4 +1,4 @@
-
+![Data-science-capstone](/img/Data-science-capstone.jpg)
 # Applied-Data-Science-Capstone-SpaceX
 
 ## Introduction
