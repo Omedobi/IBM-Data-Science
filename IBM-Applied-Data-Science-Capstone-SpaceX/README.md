@@ -7,7 +7,7 @@ SpaceX is a pioneering company leading the revolution in the space industry. It'
 ## Table of Contents
 1. [**Data Collection with API**](https://github.com/Omedobi/IBM-Data-Science-Task/blob/57ef4a929f697f427bfcc485f536d54e9789d420/IBM-Applied-Data-Science-Capstone-SpaceX/jupyter-labs-spacex-data-collection-api.ipynb)
 2. [**Data Collection with Web Scraping**](https://github.com/Omedobi/IBM-Data-Science-Task/blob/57ef4a929f697f427bfcc485f536d54e9789d420/IBM-Applied-Data-Science-Capstone-SpaceX/jupyter-labs-webscraping.ipynb)
-3. [**Data Wrangling**]()
+3. [**Data Wrangling**](https://github.com/Omedobi/IBM-Data-Science-Task/blob/d577a27a7a3d541dac23b99d1282384aceb67f98/IBM-Applied-Data-Science-Capstone-SpaceX/labs-jupyter-spacex-Data%20wrangling.ipynb)
 4. [**EDA with SQL**](https://github.com/Omedobi/IBM-Data-Science-Task/blob/57ef4a929f697f427bfcc485f536d54e9789d420/IBM-Applied-Data-Science-Capstone-SpaceX/jupyter-labs-eda-sql-coursera_sqllite.ipynb)
 5. [**EDA with Visulaization Lab**](https://github.com/Omedobi/IBM-Data-Science-Task/blob/57ef4a929f697f427bfcc485f536d54e9789d420/IBM-Applied-Data-Science-Capstone-SpaceX/jupyter-labs-eda-dataviz.ipynb)
 6. [**Interactive Visual Analytics with Folium**](https://github.com/Omedobi/IBM-Data-Science-Task/blob/57ef4a929f697f427bfcc485f536d54e9789d420/IBM-Applied-Data-Science-Capstone-SpaceX/jupyter_labs_launch_site_location.ipynb)
